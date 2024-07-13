@@ -1,5 +1,7 @@
+import Wrapper from "./Wrapper";
 import Todo from "./Todo";
-import { useState, memo } from "react";
+import Counter from "./Counter";
+import { useState } from "react";
 
 function App() {
   const list = [
@@ -9,7 +11,10 @@ function App() {
   const [todo, setTodo] = useState(list);
   return (
     <>
-      <Todo todo={todo} setTodo={setTodo} />
+      <Counter />
+      <Wrapper>
+        <Todo todo={todo} setTodo={setTodo} />
+      </Wrapper>
     </>
   );
 }
