@@ -7,7 +7,7 @@ const SideBarListItem = ({ icon, title }) => {
     <div className="px-3">
       <div className="flex gap-6 px-2 pt-2 side-bar-item h-[42px] ">
         <Icon>{icon}</Icon>
-        <p>{title}</p>
+        <p className=" hidden lg:block">{title}</p>
       </div>
     </div>
   );

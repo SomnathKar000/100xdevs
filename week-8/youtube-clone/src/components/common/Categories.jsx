@@ -36,7 +36,7 @@ export const Categories = () => {
   ];
   const [activeCategory, setActiveCategory] = useState("All");
   return (
-    <div className=" gap-3 categories">
+    <div className=" gap-3 categories w-full">
       {categoriesArray.map((category) => (
         <div
           className={`bg-[#272727] px-3 mr-3 py-1 rounded-lg cursor-pointer category-item ${
