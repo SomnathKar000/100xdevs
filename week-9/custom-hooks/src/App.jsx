@@ -1,20 +1,32 @@
-import "./App.css";
-import { useTodos } from "./customHooks/dataFetchingHooks";
-import { useMouseTrack } from "./customHooks/mouseTrack";
-import { useOnline } from "./customHooks/userOnlineHook";
+// import { useTodos } from "./customHooks/dataFetchingHooks";
+// import { useMouseTrack } from "./customHooks/mouseTrack";
+// import { useOnline } from "./customHooks/userOnlineHook";
+import { useState } from "react";
+import { useDebounce } from "./customHooks/search-debouncer";
 
 function App() {
-  const { todos, loading, fetchData } = useTodos();
-  const { isOnline } = useOnline();
-  const { mousePosition } = useMouseTrack();
+  // const { todos, loading, fetchData } = useTodos();
+  // const { isOnline } = useOnline();
+  // const { mousePosition } = useMouseTrack();
+  const [input, setInput] = useState("");
+  const { debounce } = useDebounce(input, 1000);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
       <div>
+        <input
+          placeholder="search..."
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <p>{debounce}</p>
+      </div>
+      {/* <div>
         {isOnline ? "Online" : "OffLine"}
         <div>
           Mouse Position :{mousePosition.x} , {mousePosition.y}
@@ -27,7 +39,7 @@ function App() {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }
