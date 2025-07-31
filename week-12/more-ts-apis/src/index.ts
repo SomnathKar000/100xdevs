@@ -4,6 +4,7 @@ interface User {
   age?: number;
   email: string;
   password: string;
+  image?: string;
   createdAt?: Date;
 }
 
