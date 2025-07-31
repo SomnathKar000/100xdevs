@@ -1,22 +1,12 @@
 interface User {
-  readonly id: string;
-  readonly name: string;
-  age?: number;
-  email: string;
-  password: string;
-  image?: string;
-  createdAt?: Date;
+  id: string;
+  name: string;
+}
+interface Users {
+  [key: string]: User;
 }
 
-type UserProfile = Pick<User, "name" | "age" | "password">;
-
-function updateUser(user: UserProfile) {
-  // Updates user
-}
-
-const obj: User = {
-  id: "12121",
-  name: "Hello",
-  email: "test@gmail.com",
-  password: "123456",
+const users: Users = {
+  abc123: { id: "2123", name: "Abc" },
+  xyz123: { id: "3456", name: "Xyz" },
 };
