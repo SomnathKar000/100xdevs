@@ -1,10 +1,12 @@
 interface User {
-  id: string;
   name: string;
+  email: string;
+  password: string;
 }
-type MapData = Record<string, User>;
 
-const map = new Map<string, User>();
+type UserExclude = Pick<User, "email" | "password">;
 
-map.set("xyz123", { id: "2312", name: "xyz" });
-map.set("abc123", { id: "34343", name: "abc" });
+const user: UserExclude = {
+  email: "xyz@gmail.com",
+  password: "23123",
+};
