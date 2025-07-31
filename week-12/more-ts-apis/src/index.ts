@@ -2,10 +2,9 @@ interface User {
   id: string;
   name: string;
 }
-type Users = Record<string, User | null>;
+type MapData = Record<string, User>;
 
-const users: Users = {
-  abc123: { id: "2123", name: "Abc" },
-  xyz123: { id: "3456", name: "Xyz" },
-  jkw123: null,
-};
+const map = new Map<string, User>();
+
+map.set("xyz123", { id: "2312", name: "xyz" });
+map.set("abc123", { id: "34343", name: "abc" });
