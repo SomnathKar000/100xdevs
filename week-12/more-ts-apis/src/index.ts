@@ -2,9 +2,7 @@ interface User {
   id: string;
   name: string;
 }
-interface Users {
-  [key: string]: User | null;
-}
+type Users = Record<string, User | null>;
 
 const users: Users = {
   abc123: { id: "2123", name: "Abc" },
