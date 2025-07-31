@@ -1,6 +1,6 @@
 interface User {
-  id: string;
-  name: string;
+  readonly id: string;
+  readonly name: string;
   age?: number;
   email: string;
   password: string;
@@ -13,3 +13,10 @@ type UserProfile = Pick<User, "name" | "age" | "password">;
 function updateUser(user: UserProfile) {
   // Updates user
 }
+
+const obj: User = {
+  id: "12121",
+  name: "Hello",
+  email: "test@gmail.com",
+  password: "123456",
+};
