@@ -17,6 +17,8 @@ const UserProfileSchema = z.object({
     .optional(),
 });
 
+type UserType = z.infer<typeof UserProfileSchema>;
+
 app.get("health", (req, res) => {
   res.json({
     status: true,
@@ -34,7 +36,7 @@ app.put("/user", (req, res) => {
     });
     return;
   }
-  const userData = req.body;
+  const userData: UserType = req.body;
   res.json({
     status: true,
     message: "User created successFully",
