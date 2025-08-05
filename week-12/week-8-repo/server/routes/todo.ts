@@ -1,7 +1,8 @@
 import express from "express";
 import { authenticateJwt, SECRET } from "../middleware/index";
 import { Todo } from "../db";
-import { todo } from "../validation/todo";
+import { todo } from "../../common/src/index";
+
 const router = express.Router();
 
 router.post("/todos", authenticateJwt, (req, res) => {
