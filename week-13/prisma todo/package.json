@@ -1,5 +1,5 @@
 {
-  "name": "prisma-2.0",
+  "name": "prisma-todo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,9 +11,13 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@prisma/client": "^5.2.0",
+    "@prisma/studio": "^0.511.0",
     "@types/node": "^22.15.3",
-    "prisma": "^6.6.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "prisma": "^6.7.0"
   }
 }

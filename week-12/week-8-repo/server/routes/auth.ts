@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import express from "express";
 import { authenticateJwt, SECRET } from "../middleware/";
 import { User } from "../db";
-import { signupInput } from "../../common/src/index";
+import { signupInput } from "@somnathkar000/package";
 
 const router = express.Router();
 

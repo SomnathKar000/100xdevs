@@ -1,7 +1,7 @@
 import express from "express";
 import { authenticateJwt, SECRET } from "../middleware/index";
 import { Todo } from "../db";
-import { todo } from "../../common/src/index";
+import { todo } from "@somnathkar000/package";
 
 const router = express.Router();
 
