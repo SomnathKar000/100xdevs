@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { getPrismaClient } from "../utils/prismaClient";
+import { signupValidation, signinValidation } from "../validations/user";
 
 const userRoute = new Hono<{
   Bindings: {
@@ -13,7 +14,9 @@ userRoute.post("/signup", async (c) => {
 
   const body = await c.req.json();
 
-  if (!body.email || !body.password) {
+  const { success } = signupValidation.safeParse(body);
+
+  if (!success) {
     c.status(403);
     return c.json({
       message: "Invalid credentials",
@@ -47,7 +50,9 @@ userRoute.post("/signin", async (c) => {
 
   const body = await c.req.json();
 
-  if (!body.email || !body.password) {
+  const { success } = signinValidation.safeParse(body);
+
+  if (!success) {
     c.status(403);
     return c.json({
       message: "Invalid credentials",

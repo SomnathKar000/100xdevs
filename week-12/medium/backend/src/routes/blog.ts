@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { assignIfDefined } from "../utils/helper";
 import { getPrismaClient } from "../utils/prismaClient";
 import { verify } from "hono/jwt";
+import { createBlogValidation } from "../validations/blog";
 
 const blogRoutes = new Hono<{
   Bindings: {
@@ -62,7 +63,9 @@ blogRoutes.post("/", async (c) => {
 
   const body = await c.req.json();
 
-  if (!body?.title || !body?.content) {
+  const { success } = createBlogValidation.safeParse(body);
+
+  if (!success) {
     c.status(403);
     return c.json({
       message: "Invalid credentials",
