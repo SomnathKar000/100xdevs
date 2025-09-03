@@ -1,15 +1,64 @@
 import { Hono } from "hono";
 import { assignIfDefined } from "../utils/helper";
 import { getPrismaClient } from "../utils/prismaClient";
+import { verify } from "hono/jwt";
 
-const blogRoutes = new Hono();
+const blogRoutes = new Hono<{
+  Bindings: {
+    JWT_SECRET: string;
+  };
+  Variables: {
+    userId: string;
+  };
+}>();
 
 blogRoutes.use("/*", async (c, next) => {
-  await next();
+  const token = c.req.header("authorization");
+  if (!token) {
+    c.status(403);
+    return c.json({ message: "Unauthorized" });
+  }
+  try {
+    const user = await verify(token, c.env.JWT_SECRET);
+    if (
+      user &&
+      typeof user === "object" &&
+      "id" in user &&
+      typeof user.id === "string"
+    ) {
+      c.set("userId", user.id);
+      return next();
+    } else {
+      c.status(403);
+      return c.json({ message: "You are not authorized" });
+    }
+  } catch (error) {
+    c.status(403);
+    return c.json({
+      message: "Verification failed",
+    });
+  }
+});
+
+blogRoutes.get("/bulk", async (c) => {
+  const prisma = getPrismaClient(c);
+  try {
+    const blogs = await prisma.post.findMany();
+
+    return c.json({
+      message: "All blog data fetched successfully",
+      data: blogs,
+    });
+  } catch (error) {
+    c.status(411);
+    return c.json({
+      message: "Error while getting all blog data",
+    });
+  }
 });
 
 blogRoutes.post("/", async (c) => {
-  const userID = "b968b355-c5ad-4a79-b23d-0f17710316e2";
+  const userID = c.get("userId");
 
   const body = await c.req.json();
 
@@ -98,6 +147,7 @@ blogRoutes.put("/", async (c) => {
   }
 
   const prisma = getPrismaClient(c);
+  const userId = c.get("userId");
 
   const data = {};
   assignIfDefined(data, "title", title);
@@ -108,6 +158,7 @@ blogRoutes.put("/", async (c) => {
     const blogData = await prisma.post.update({
       where: {
         id: id,
+        authorId: userId,
       },
       data,
     });

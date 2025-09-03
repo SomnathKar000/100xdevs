@@ -8,7 +8,7 @@ const userRoute = new Hono<{
   };
 }>();
 
-userRoute.post("/", async (c) => {
+userRoute.post("/signup", async (c) => {
   const prisma = getPrismaClient(c);
 
   const body = await c.req.json();
@@ -42,7 +42,7 @@ userRoute.post("/", async (c) => {
   }
 });
 
-userRoute.post("/", async (c) => {
+userRoute.post("/signin", async (c) => {
   const prisma = getPrismaClient(c);
 
   const body = await c.req.json();
